@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple API UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #character-list {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .character {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px 0;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Daftar Karakter</h1>
+    <div id="character-list"></div>
+
+    <script>
+        // Fungsi untuk mengambil dan menampilkan karakter
+        function fetchCharacters() {
+            fetch('/characters')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('character-list');
+                    list.innerHTML = '';
+                    data.data.forEach(char => {
+                        list.innerHTML += `
+                            <div class="character">
+                                <strong>${char.name}</strong> (${char.age} tahun) - ${char.power}
+                            </div>`;
+                    });
+                });
+        }
+
+        // Panggil fetchCharacters() saat halaman dimuat
+        fetchCharacters();
+    </script>
+
+</body>
+</html>
